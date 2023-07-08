@@ -5,8 +5,9 @@ public class Main {
             "encryption", "firewall", "framework", "function", "hardware", "integer", "interface", "iteration",
             "logic", "loop", "method", "network", "object", "operator", "packet", "protocol", "query", "queue",
             "recursion", "router", "script", "server", "software", "source", "stack", "syntax", "thread", "token",
-            "variable", "virtual", "web", "wireless", "algorithm", "cybersecurity", "data", "database", "security",
-            "security", "server", "software", "system"};
+            "variable", "virtual", "web", "wireless", "algorithm", "cybersecurity", "data", "database", "programming",
+            "security", "server", "software", "system"
+    };
     private static final int MAX_GUESS = 6;
 
     private static int[] leaderboardScores = new int[10];
@@ -94,6 +95,7 @@ public class Main {
     }
 
 
+
     private static int startGame(String[] words, Scanner scanner, int score, String Name) {
 
         String[] hints = {
@@ -163,6 +165,8 @@ public class Main {
 
 
 
+
+
         while (attempts > 0 && placeHolder.contains("_")) {
             System.out.println("Hint: " + hint);
             System.out.println("Available attempts: " + attempts);
@@ -203,9 +207,10 @@ public class Main {
         } else {
             System.out.println("Oh no! Seems like the word was:  " + wordToGuess);
             printHangman(wrongGuess);
+            return score;
         }
 
-        return score;  // Return the score if the game is not won
+         // Return the score if the game is not won
 
 
 
@@ -315,6 +320,10 @@ public class Main {
                 System.out.println((i + 1) + ". " + leaderboardNames[i] + " - " + leaderboardScores[i]);
             }
         }
+    }
+    private static String randomWord(String[] words) {
+        int randomIndex = (int) (Math.random() * words.length);
+        return words[randomIndex];
     }
 
 
