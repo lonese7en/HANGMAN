@@ -1,0 +1,286 @@
+import java.util.Scanner;
+
+public class Main {
+    private static final String[] WORDS = {"intel", "algorithm", "array", "binary", "bit", "bug", "byte", "cache", "compiler", "database", "debug",
+            "encryption", "firewall", "framework", "function", "hardware", "integer", "interface", "iteration",
+            "logic", "loop", "method", "network", "object", "operator", "packet", "protocol", "query", "queue",
+            "recursion", "router", "script", "server", "software", "source", "stack", "syntax", "thread", "token",
+            "variable", "virtual", "web", "wireless", "algorithm", "cybersecurity", "data", "database", "programming",
+            "security", "server", "software", "system"};
+    private static final int MAX_GUESS = 6;
+
+    private static int score = 0;
+    private static String Name = "";
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+        System.out.println("██╗  ██╗ █████╗ ███╗   ██╗ ██████╗ ███╗   ███╗ █████╗ ███╗   ██╗");
+        System.out.println("██║  ██║██╔══██╗████╗  ██║██╔════╝ ████╗ ████║██╔══██╗████╗  ██║");
+        System.out.println("███████║███████║██╔██╗ ██║██║  ███╗██╔████╔██║███████║██╔██╗ ██║");
+        System.out.println("██╔══██║██╔══██║██║╚██╗██║██║   ██║██║╚██╔╝██║██╔══██║██║╚██╗██║");
+        System.out.println("██║  ██║██║  ██║██║ ╚████║╚██████╔╝██║ ╚═╝ ██║██║  ██║██║ ╚████║");
+        System.out.println("╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝");
+
+
+        System.out.println(" ");
+        System.out.println("Welcome To Hangman");
+        System.out.println("*Note: Words are programming related*");
+        System.out.println("1. Start the game");
+        System.out.println("2. Credits");
+        System.out.println("3. Quit");
+
+        int menuChoice = scanner.nextInt();
+        scanner.nextLine();
+
+
+        while (!exit) {
+
+            switch (menuChoice) {
+                case 1:
+                    System.out.println("Enter your name:");
+                    String playerName = scanner.nextLine();
+
+                    Name = playerName;
+                    startGame(WORDS, scanner, score, Name);
+                    break;
+
+                case 2:
+                    displayCredits();
+                    break;
+
+                case 3:
+                    System.out.println("Exiting...");
+                    exit = true;
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Pick again.");
+                    break;
+            }
+
+            if (!exit) {
+                System.out.println("\n1. Start the game");
+                System.out.println("2. Credits");
+                System.out.println("3. Quit");
+                menuChoice = scanner.nextInt();
+                scanner.nextLine();
+            }
+        }
+
+        scanner.close();
+    }
+
+    private static void startGame(String[] words, Scanner scanner, int score, String Name) {
+
+        String[] hints = {
+                "World's largest semiconductor chip manufacturer.",
+                "A set of rules or steps for solving a specific problem.",
+                "A data structure that stores a fixed-size sequential collection of elements of the same type.",
+                "A number expressed in the base-2 numeral system.",
+                "The basic unit of information in computing and digital communications.",
+                "An error or flaw in a computer program or system.",
+                "A unit of digital information that most commonly consists of eight bits.",
+                "A component that stores data temporarily to improve performance.",
+                "A program that translates source code written in a high-level programming language into a lower-level language.",
+                "An organized collection of structured information or data.",
+                "The process of identifying and removing errors or defects from a computer program.",
+                "The process of converting plaintext into ciphertext to secure data.",
+                "A network security device that monitors and filters incoming and outgoing network traffic.",
+                "A software framework that provides a foundation for developing application software.",
+                "A named section of a program that performs a specific task.",
+                "The physical components of a computer system.",
+                "A whole number that can be either positive, negative, or zero.",
+                "A point of interaction between a user and a computer system.",
+                "The repetition of a process or set of instructions in a computer program.",
+                "The systematic study of the principles of valid inference and correct reasoning.",
+                "A sequence of instructions that is continually repeated until a certain condition is reached.",
+                "A named block of code that performs a specific task.",
+                "A group of interconnected devices or computers that can communicate with each other.",
+                "A self-contained entity that consists of both data and procedures to manipulate the data.",
+                "A symbol that represents an operation, action, or relation.",
+                "A formatted unit of data carried by a packet-switched network.",
+                "A set of rules and protocols that govern the behavior of devices on a network.",
+                "A request for data or information from a database.",
+                "A collection of elements that supports adding elements to the end and removing elements from the front.",
+                "The process of solving a problem by breaking it down into smaller, simpler parts.",
+                "A device that forwards data packets between computer networks.",
+                "A sequence of instructions that is interpreted or executed by a program.",
+                "A computer or device that manages network resources and provides services to other computers.",
+                "A collection of computer programs, data, and instructions that tell the computer how to work.",
+                "The origin or creation point of something.",
+                "A data structure that follows the Last-In-First-Out (LIFO) principle.",
+                "The set of rules governing the structure and interpretation of commands in a programming language.",
+                "A unit of execution within a program that can be executed independently of other units.",
+                "A value or token that represents something else.",
+                "A named storage location in a computer's memory that holds data.",
+                "Existing only in essence or in the imagination.",
+                "Relating to or denoting the internet or websites.",
+                "A form of computer network communication that does not use cables.",
+                "A process or set of rules to protect computer systems and data from unauthorized access.",
+                "Information in a form that can be processed by a computer.",
+                "An organized collection of structured information or data.",
+                "The process of designing and building computer programs.",
+                "The state of being free from danger or threat.",
+                "A computer or computer program that manages access to a centralized resource.",
+                "The programs and other operating information used by a computer system.",
+                "A set of interacting or interdependent components that form a unified whole."
+        };
+
+        int randomIndex = (int) (Math.random() * words.length);
+        String wordToGuess = words[randomIndex];
+        String hint = hints[randomIndex];
+        String placeHolder = "";
+        int attempts = MAX_GUESS;
+        int wrongGuess = 0;
+
+        for (int i = 0; i < wordToGuess.length(); i++) {
+            placeHolder += "_";
+        }
+
+        System.out.println("Hint: " + hint);
+
+        while (attempts > 0 && placeHolder.contains("_")) {
+            System.out.println("Available attempts: " + attempts);
+            System.out.println("Wrong guesses: " + wrongGuess);
+            printHangman(wrongGuess);
+            System.out.println("Current Letter: " + placeHolder);
+            System.out.println(Name + "'s Score: " + score);
+
+            char guess = scanner.next().charAt(0);
+            boolean correctGuess = false;
+            StringBuilder newWord = new StringBuilder();
+
+            for (int i = 0; i < wordToGuess.length(); i++) {
+                if (wordToGuess.charAt(i) == guess) {
+                    newWord.append(guess);
+                    correctGuess = true;
+                } else {
+                    newWord.append(placeHolder.charAt(i));
+                }
+            }
+
+            if (correctGuess) {
+                System.out.println("Correct guess!");
+                placeHolder = newWord.toString();
+            } else {
+                System.out.println("Incorrect guess!");
+                attempts--;
+                wrongGuess++;
+            }
+
+            System.out.println();
+        }
+
+        if (placeHolder.equals(wordToGuess)) {
+            System.out.println("Correct! The word is: " + wordToGuess);
+            score++;
+            startGame(words, scanner, score, Name);
+        } else {
+            System.out.println("Oh no! Seems like the word was:  " + wordToGuess);
+            printHangman(wrongGuess);
+        }
+
+    }
+
+
+    private static String randomWord(String[] words) {
+        int randomIndex = (int) (Math.random() * words.length);
+        return words[randomIndex];
+    }
+
+    private static void displayCredits() {
+        System.out.println("Credits");
+
+        System.out.println("Pedro P. Hidalgo III");
+        System.out.println("Game Design");
+        System.out.println("");
+        System.out.println("Robert Rosal");
+        System.out.println("Game Design");
+        System.out.println("");
+        System.out.println("Rhaeza Murillo");
+        System.out.println("Coding/Documentation");
+        System.out.println("");
+        System.out.println("Lyka Cudera");
+        System.out.println("Documentation");
+        System.out.println("");
+        System.out.println("Nimro Qui");
+        System.out.println("Documentation");
+    }
+
+    private static void printHangman(int wrongGuess) {
+        String[] ASCIIstick = {
+                " _________\n" +
+                        " |        |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |        |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\\\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\\\n" +
+                        " |       /\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\\\n" +
+                        " |       / \\\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n"
+        };
+
+        System.out.println(ASCIIstick[wrongGuess]);
+    }
+}
