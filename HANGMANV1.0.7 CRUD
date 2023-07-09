@@ -50,10 +50,11 @@ public class Main {
         System.out.println("                                                                         6. Credits");
         System.out.println("                                                                         7. Quit");
 
-        int menuChoice = scanner.nextInt();
-        scanner.nextLine();
+
 
         while (!exit) {
+            int menuChoice = scanner.nextInt();
+            scanner.nextLine();
             switch (menuChoice) {
                 case 1:
                     System.out.println("Enter your name:");
@@ -152,6 +153,7 @@ public class Main {
                     System.out.println("Exiting...");
                     exit = true;
                     break;
+
                 default:
                     System.out.println("Invalid choice. Pick again.");
                     break;
