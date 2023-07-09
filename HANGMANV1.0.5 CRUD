@@ -1,11 +1,14 @@
 import java.util.Scanner;
 
 public class Main {
-    private static String[] WORDS = {"program", "java", "bug"};
+    private static String[] WORDS = {"program", "java", "bug", "artificial intelligence", "source code", "software", "hardware", "pseudocode", "compiler", "class"};
 
     private static String[] hints = {
             "a series of coded software instructions to control the operation of a computer or other machine.", "a widely used object-oriented programming language and software platform",
-            " an error in the source code that causes a program to produce unexpected results or crash altogether."
+            " an error in the source code that causes a program to produce unexpected results or crash altogether.", "the ability of a digital computer or computer-controlled robot to perform tasks commonly associated with intelligent beings.",
+            "a text listing of commands to be compiled or assembled into an executable computer program.", "comprises the entire set of programs, procedures, and routines associated with the operation of a computer system.",
+            "refers to the computer's tangible components or delivery systems that store and run the written instructions provided by the software.", " an informal way of programming description that does not require any strict programming language syntax or underlying technology considerations.",
+            "a special program that translates a programming language's source code into machine code, bytecode or another programming language.", "a blueprint specifies what an object will look like."
 
     };
     private static final int MAX_GUESS = 6;
@@ -202,7 +205,7 @@ public class Main {
 
 
         while (attempts > 0 && placeHolder.contains("_")) {
-            Thread.sleep(300);
+            Thread.sleep(600);
             System.out.println("Hint: " + hint);
             System.out.println("Available attempts: " + attempts);
             System.out.println("Wrong guesses: " + wrongGuess);
@@ -224,6 +227,7 @@ public class Main {
             }
 
             if (correctGuess) {
+                Thread.sleep(500);
                 System.out.println("Correct guess!");
                 placeHolder = newWord.toString();
             } else {
@@ -236,8 +240,19 @@ public class Main {
         }
 
         if (placeHolder.equals(wordToGuess)) {
+            System.out.println("");
             Thread.sleep(450);
-            System.out.println("Correct! The word is: " + wordToGuess);
+            System.out.println("  ██████╗ ██████╗ ██████╗ ██████╗ ███████╗ ██████╗████████╗██╗");
+            System.out.println(" ██╔════╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║");
+            System.out.println(" ██║     ██║   ██║██████╔╝██████╔╝█████╗  ██║        ██║   ██║");
+            System.out.println(" ██║     ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║        ██║   ╚═╝");
+            System.out.println(" ╚██████╗╚██████╔╝██║  ██║██║  ██║███████╗╚██████╗   ██║   ██╗");
+            System.out.println("  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝");
+            Thread.sleep(450);
+            System.out.println("The word is: " + wordToGuess);
+            System.out.println("");
+            System.out.println("");
+            Thread.sleep(700);
             score++;
             startGame(words, scanner, score, Name);
         } else {
