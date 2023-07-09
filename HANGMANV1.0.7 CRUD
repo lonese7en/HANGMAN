@@ -231,6 +231,7 @@ public class Main {
                 System.out.println("Correct guess!");
                 placeHolder = newWord.toString();
             } else {
+                Thread.sleep(500);
                 System.out.println("Incorrect guess!");
                 attempts--;
                 wrongGuess++;
