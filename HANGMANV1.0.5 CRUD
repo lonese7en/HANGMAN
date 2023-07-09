@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
 public class Main {
-    private static String[] WORDS = {"program", "java", "bug", "artificial intelligence", "source code", "software", "hardware", "pseudocode", "compiler", "class"};
+    private static String[] WORDS = {"program", "java", "bug", "network", "source code", "software", "hardware", "pseudocode", "compiler", "class"};
 
     private static String[] hints = {
             "a series of coded software instructions to control the operation of a computer or other machine.", "a widely used object-oriented programming language and software platform",
-            " an error in the source code that causes a program to produce unexpected results or crash altogether.", "the ability of a digital computer or computer-controlled robot to perform tasks commonly associated with intelligent beings.",
+            " an error in the source code that causes a program to produce unexpected results or crash altogether.", "a collection of computers, servers, mainframes, network devices, peripherals, or other devices connected to allow data sharing.",
             "a text listing of commands to be compiled or assembled into an executable computer program.", "comprises the entire set of programs, procedures, and routines associated with the operation of a computer system.",
             "refers to the computer's tangible components or delivery systems that store and run the written instructions provided by the software.", " an informal way of programming description that does not require any strict programming language syntax or underlying technology considerations.",
             "a special program that translates a programming language's source code into machine code, bytecode or another programming language.", "a blueprint specifies what an object will look like."
