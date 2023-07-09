@@ -1,0 +1,374 @@
+import java.util.Scanner;
+
+public class Main {
+    private static String[] WORDS = {"program", "java", "bug", "network", "syntax", "software", "hardware", "pseudocode", "compiler", "class"};
+
+    private static String[] hints = {
+            "a series of coded software instructions to control the operation of a computer or other machine.", "a widely used object-oriented programming language and software platform",
+            " an error in the source code that causes a program to produce unexpected results or crash altogether.", "a collection of computers, servers, mainframes, network devices, peripherals, or other devices connected to allow data sharing.",
+            "refers to the rules that govern the structure of the symbols, words, and punctuation found in programming languages.", "comprises the entire set of programs, procedures, and routines associated with the operation of a computer system.",
+            "refers to the computer's tangible components or delivery systems that store and run the written instructions provided by the software.", " an informal way of programming description that does not require any strict programming language syntax or underlying technology considerations.",
+            "a special program that translates a programming language's source code into machine code, bytecode or another programming language.", "a blueprint specifies what an object will look like."
+
+    };
+    private static final int MAX_GUESS = 6;
+
+    private static int score = 0;
+    private static String Name = "";
+
+    public static void main(String[] args) throws InterruptedException {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        Thread.sleep(250);
+        System.out.println("                                                                                       ░▒█░░▒█░█▀▀░█░░█▀▄░▄▀▀▄░█▀▄▀█░█▀▀░");
+        System.out.println("                                                                                       ░▒█▒█▒█░█▀▀░█░░█░░░█░░█░█░▀░█░█▀▀░");
+        System.out.println("                                                                                       ░▒▀▄▀▄▀░▀▀▀░▀▀░▀▀▀░░▀▀░░▀░░▒▀░▀▀▀░");
+        Thread.sleep(400);
+        System.out.println("                                                                                                  ░▀▀█▀▀░▄▀▀▄");
+        System.out.println("                                                                                                  ░░▒█░░░█░░█");
+        System.out.println("                                                                                                  ░░▒█░░░░▀▀░");
+        Thread.sleep(450);
+        System.out.println("                                                                          ██╗  ██╗ █████╗ ███╗   ██╗ ██████╗ ███╗   ███╗ █████╗ ███╗   ██╗");
+        System.out.println("                                                                          ██║  ██║██╔══██╗████╗  ██║██╔════╝ ████╗ ████║██╔══██╗████╗  ██║");
+        System.out.println("                                                                          ███████║███████║██╔██╗ ██║██║  ███╗██╔████╔██║███████║██╔██╗ ██║");
+        System.out.println("                                                                          ██╔══██║██╔══██║██║╚██╗██║██║   ██║██║╚██╔╝██║██╔══██║██║╚██╗██║");
+        System.out.println("                                                                          ██║  ██║██║  ██║██║ ╚████║╚██████╔╝██║ ╚═╝ ██║██║  ██║██║ ╚████║");
+        System.out.println("                                                                          ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝");
+        System.out.println("");
+        Thread.sleep(400);
+        System.out.println("                                                                                          Enter any key to continue...");
+        scanner.nextLine();
+        System.out.println("                                                                         Welcome To Hangman");
+        System.out.println("                                                                         1. Start the game");
+        System.out.println("                                                                         2. Add word and hint");
+        System.out.println("                                                                         3. Delete word and hint");
+        System.out.println("                                                                         4. Edit word and hint");
+        System.out.println("                                                                         5. View all available words to guess");
+        System.out.println("                                                                         6. Credits");
+        System.out.println("                                                                         7. Quit");
+
+        int menuChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        while (!exit) {
+            switch (menuChoice) {
+                case 1:
+                    System.out.println("Enter your name:");
+                    String playerName = scanner.nextLine();
+
+                    Name = playerName;
+                    startGame(WORDS, scanner, score, Name);
+                    break;
+
+                case 2:
+                    addWordAndHint(scanner);
+                    break;
+
+                case 3:
+                    System.out.println("Current words and hints:");
+                    for (int i = 0; i < WORDS.length; i++) {
+                        System.out.println((i + 1) + ". " + WORDS[i] + " - " + hints[i]);
+                    }
+                    System.out.println("Enter the number of the word to delete:");
+                    int wordToDelete = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (wordToDelete >= 1 && wordToDelete <= WORDS.length) {
+                        wordToDelete--; // Adjust for array index
+                        String[] newWords = new String[WORDS.length - 1];
+                        String[] newHints = new String[WORDS.length - 1];
+
+                        for (int i = 0, j = 0; i < WORDS.length; i++) {
+                            if (i != wordToDelete) {
+                                newWords[j] = WORDS[i];
+                                newHints[j] = hints[i];
+                                j++;
+                            }
+                        }
+
+                        WORDS = newWords;
+                        hints = newHints;
+
+                        System.out.println("Word and hint deleted successfully!");
+                    } else {
+                        System.out.println("Invalid word number.");
+                    }
+                    System.out.println("");
+                    System.out.println("Enter any key to go back to the main menu");
+                    scanner.nextLine();
+                    main(new String[0]);
+                    break;
+
+                case 4:
+                    System.out.println("Current words and hints:");
+                    for (int i = 0; i < WORDS.length; i++) {
+                        System.out.println((i + 1) + ". " + WORDS[i] + " - " + hints[i]);
+                    }
+                    System.out.println("Enter the number of the word to edit:");
+                    int wordToEdit = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (wordToEdit >= 1 && wordToEdit <= WORDS.length) {
+                        wordToEdit--;
+
+                        System.out.println("Enter the new word:");
+                        String editedWord = scanner.nextLine();
+
+                        System.out.println("Enter the new hint:");
+                        String editedHint = scanner.nextLine();
+
+                        WORDS[wordToEdit] = editedWord;
+                        hints[wordToEdit] = editedHint;
+
+                        System.out.println("Word and hint edited successfully!");
+                    } else {
+                        System.out.println("Invalid word number.");
+                    }
+                    System.out.println("");
+                    System.out.println("Enter any key to go back to the main menu");
+                    scanner.nextLine();
+                    main(new String[0]);
+
+                    break;
+
+                case 5:
+                    for (int i = 0; i < WORDS.length; i++) {
+                        System.out.println((i + 1) + ". " + WORDS[i] + " - " + hints[i]);
+                    }
+                    System.out.println("");
+                    System.out.println("Enter any key to go back to the main menu");
+                    scanner.nextLine();
+                    main(new String[0]);
+                    break;
+
+                case 6:
+                    displayCredits(scanner);
+                    break;
+
+                case 7:
+                    System.out.println("Exiting...");
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Pick again.");
+                    break;
+            }
+
+        }
+
+        scanner.close();
+    }
+
+    private static void addWordAndHint(Scanner scanner) throws InterruptedException {
+        System.out.println("Enter the word to add:");
+        String newWord = scanner.nextLine();
+
+        System.out.println("Enter the hint for the word:");
+        String newHint = scanner.nextLine();
+
+        String[] newWords = new String[WORDS.length + 1];
+        String[] newHints = new String[WORDS.length + 1];
+
+        for (int i = 0; i < WORDS.length; i++) {
+            newWords[i] = WORDS[i];
+            newHints[i] = hints[i];
+        }
+
+        newWords[WORDS.length] = newWord;
+        newHints[WORDS.length] = newHint;
+
+        WORDS = newWords;
+        hints = newHints;
+
+        System.out.println("Word and hint added successfully!");
+        System.out.println("");
+        System.out.println("Enter any key to go back to the main menu.");
+        scanner.nextLine();
+        main(new String[0]);
+    }
+
+    private static void startGame(String[] words, Scanner scanner, int score, String Name) throws InterruptedException {
+        int randomIndex = (int) (Math.random() * words.length);
+        String wordToGuess = words[randomIndex];
+        String hint =hints[randomIndex];
+        String placeHolder = "";
+        int attempts = MAX_GUESS;
+        int wrongGuess = 0;
+
+        for (int i = 0; i < wordToGuess.length(); i++) {
+            placeHolder += "_";
+        }
+
+
+
+        while (attempts > 0 && placeHolder.contains("_")) {
+            Thread.sleep(600);
+            System.out.println("Hint: " + hint);
+            System.out.println("Available attempts: " + attempts);
+            System.out.println("Wrong guesses: " + wrongGuess);
+            printHangman(wrongGuess);
+            System.out.println("Current Letter: " + placeHolder);
+            System.out.println(Name + "'s Score: " + score);
+
+            char guess = scanner.next().charAt(0);
+            boolean correctGuess = false;
+            StringBuilder newWord = new StringBuilder();
+
+            for (int i = 0; i < wordToGuess.length(); i++) {
+                if (wordToGuess.charAt(i) == guess) {
+                    newWord.append(guess);
+                    correctGuess = true;
+                } else {
+                    newWord.append(placeHolder.charAt(i));
+                }
+            }
+
+            if (correctGuess) {
+                Thread.sleep(500);
+                System.out.println("Correct guess!");
+                placeHolder = newWord.toString();
+            } else {
+                System.out.println("Incorrect guess!");
+                attempts--;
+                wrongGuess++;
+            }
+
+            System.out.println();
+        }
+
+        if (placeHolder.equals(wordToGuess)) {
+            System.out.println("");
+            Thread.sleep(450);
+            System.out.println("  ██████╗ ██████╗ ██████╗ ██████╗ ███████╗ ██████╗████████╗██╗");
+            System.out.println(" ██╔════╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║");
+            System.out.println(" ██║     ██║   ██║██████╔╝██████╔╝█████╗  ██║        ██║   ██║");
+            System.out.println(" ██║     ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║        ██║   ╚═╝");
+            System.out.println(" ╚██████╗╚██████╔╝██║  ██║██║  ██║███████╗╚██████╗   ██║   ██╗");
+            System.out.println("  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝");
+            Thread.sleep(450);
+            System.out.println("The word is: " + wordToGuess);
+            System.out.println("");
+            System.out.println("");
+            Thread.sleep(700);
+            score++;
+            startGame(words, scanner, score, Name);
+        } else {
+            Thread.sleep(450);
+            System.out.println("Oh no! Seems like the word was:  " + wordToGuess);
+            System.out.println("");
+            Thread.sleep(700);
+            printHangman(wrongGuess);
+            Thread.sleep(800);
+            System.out.println(" ▀██▀ ▀█▀                    ▀██                         ▄█▄ ");
+            System.out.println("   ██ █    ▄▄▄   ▄▄▄ ▄▄▄      ██    ▄▄▄    ▄▄▄▄    ▄▄▄▄  ███ ");
+            System.out.println("    ██   ▄█  ▀█▄  ██  ██      ██  ▄█  ▀█▄ ██▄ ▀  ▄█▄▄▄██ ▀█▀ ");
+            System.out.println("    ██   ██   ██  ██  ██      ██  ██   ██ ▄ ▀█▄▄ ██       █ ");
+            System.out.println("   ▄██▄   ▀█▄▄█▀  ▀█▄▄▀█▄    ▄██▄  ▀█▄▄█▀ █▀▄▄█▀  ▀█▄▄▄▀  ▄  ");
+            System.out.println("                                                         ▀█▀ ");
+
+            Thread.sleep(450);
+            System.out.println("Enter any key to go back to the main menu.");
+            scanner.nextLine();
+            scanner.nextLine();
+            main(new String[0]);
+        }
+
+    }
+
+    private static void displayCredits(Scanner scanner) throws InterruptedException {
+        System.out.println("              Credits");
+        System.out.println("     Group 6 - Sige Hulaan Mo Team");
+        System.out.printf("%-20s%-15s\n", "Pedro Hidalgo III ", " Game Design/Coding");
+        System.out.println("");
+        System.out.printf("%-20s%-15s\n", "Robert Rosal", "Game Design/Coding");
+        System.out.println("");
+        System.out.printf("%-20s%-15s\n", "Rhaeza Murillo", "Coding/Documentation");
+        System.out.println("");
+        System.out.printf("%-20s%-15s\n", "Lyka Cudera", "Documentation");
+        System.out.println("");
+        System.out.printf("%-20s%-15s\n", "Nimro Qui", "Documentation");
+        System.out.println("");
+        System.out.println("Enter any key to go back to the main menu");
+        scanner.nextLine();
+        main(new String[0]);
+    }
+
+    private static void printHangman(int wrongGuess) {
+        String[] ASCIIstick = {
+                " _________\n" +
+                        " |        |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |        |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\\\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\\\n" +
+                        " |       /\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n",
+
+                " _________\n" +
+                        " |        |\n" +
+                        " |        O\n" +
+                        " |       /|\\\n" +
+                        " |       / \\\n" +
+                        " |\n" +
+                        " |\n" +
+                        " |\n" +
+                        "_|_________\n"
+        };
+
+        System.out.println(ASCIIstick[wrongGuess]);
+    }
+}
