@@ -280,7 +280,7 @@ public class Main {
 
     private static void displayCredits(Scanner scanner) throws InterruptedException {
         System.out.println("              Credits");
-        System.out.println("     Group 6 - Sige Hulaan Mo Team");
+        System.out.println("       Group 4 - Sige Isipin Mo ");
         System.out.printf("%-20s%-15s\n", "Pedro Hidalgo III ", " Game Design/Coding");
         System.out.println("");
         System.out.printf("%-20s%-15s\n", "Robert Rosal", "Game Design/Coding");
