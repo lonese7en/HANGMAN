@@ -1,10 +1,11 @@
 import java.util.Scanner;
 
 public class Main {
-    private static String[] WORDS = {"program"};
+    private static String[] WORDS = {"program", "java", "bug"};
 
     private static String[] hints = {
-            "a series of coded software instructions to control the operation of a computer or other machine."
+            "a series of coded software instructions to control the operation of a computer or other machine.", "a widely used object-oriented programming language and software platform",
+            " an error in the source code that causes a program to produce unexpected results or crash altogether."
 
     };
     private static final int MAX_GUESS = 6;
@@ -92,7 +93,7 @@ public class Main {
                     } else {
                         System.out.println("Invalid word number.");
                     }
-
+                    System.out.println("");
                     System.out.println("Press any key to go back to the main menu");
                     scanner.nextLine();
                     main(new String[0]);
@@ -123,6 +124,7 @@ public class Main {
                     } else {
                         System.out.println("Invalid word number.");
                     }
+                    System.out.println("");
                     System.out.println("Press any key to go back to the main menu");
                     scanner.nextLine();
                     main(new String[0]);
@@ -133,6 +135,7 @@ public class Main {
                     for (int i = 0; i < WORDS.length; i++) {
                         System.out.println((i + 1) + ". " + WORDS[i] + " - " + hints[i]);
                     }
+                    System.out.println("");
                     System.out.println("Press any key to go back to the main menu");
                     scanner.nextLine();
                     main(new String[0]);
@@ -178,7 +181,7 @@ public class Main {
         hints = newHints;
 
         System.out.println("Word and hint added successfully!");
-
+        System.out.println("");
         System.out.println("Press any key to go back to the main menu.");
         scanner.nextLine();
         main(new String[0]);
@@ -196,9 +199,11 @@ public class Main {
             placeHolder += "_";
         }
 
-        System.out.println("Hint: " + hint);
+
 
         while (attempts > 0 && placeHolder.contains("_")) {
+            Thread.sleep(300);
+            System.out.println("Hint: " + hint);
             System.out.println("Available attempts: " + attempts);
             System.out.println("Wrong guesses: " + wrongGuess);
             printHangman(wrongGuess);
@@ -231,11 +236,23 @@ public class Main {
         }
 
         if (placeHolder.equals(wordToGuess)) {
+            Thread.sleep(450);
             System.out.println("Correct! The word is: " + wordToGuess);
             score++;
             startGame(words, scanner, score, Name);
         } else {
+            Thread.sleep(450);
             System.out.println("Oh no! Seems like the word was:  " + wordToGuess);
+            System.out.println("");
+            Thread.sleep(450);
+            System.out.println(" ▀██▀ ▀█▀                    ▀██                         ▄█▄ ");
+            System.out.println("   ██ █    ▄▄▄   ▄▄▄ ▄▄▄      ██    ▄▄▄    ▄▄▄▄    ▄▄▄▄  ███ ");
+            System.out.println("    ██   ▄█  ▀█▄  ██  ██      ██  ▄█  ▀█▄ ██▄ ▀  ▄█▄▄▄██ ▀█▀ ");
+            System.out.println("    ██   ██   ██  ██  ██      ██  ██   ██ ▄ ▀█▄▄ ██       █ ");
+            System.out.println("   ▄██▄   ▀█▄▄█▀  ▀█▄▄▀█▄    ▄██▄  ▀█▄▄█▀ █▀▄▄█▀  ▀█▄▄▄▀  ▄  ");
+            System.out.println("                                                         ▀█▀ ");
+
+                    Thread.sleep(450);
             System.out.println("Press any key to go back to the main menu.");
             scanner.nextLine();
             scanner.nextLine();
@@ -245,13 +262,18 @@ public class Main {
     }
 
     private static void displayCredits(Scanner scanner) throws InterruptedException {
-        System.out.printf("%50s\n\n", "Credits");
-        System.out.printf("%-20s%-15s\n", "Pedro P. Hidalgo III", "Game Design");
-        System.out.printf("%-20s%-15s\n", "Robert Rosal", "Game Design");
+        System.out.println("              Credits");
+        System.out.println("     Group 6 - Sige Hulaan Mo Team");
+        System.out.printf("%-20s%-15s\n", "Pedro Hidalgo III ", " Game Design/Coding");
+        System.out.println("");
+        System.out.printf("%-20s%-15s\n", "Robert Rosal", "Game Design/Coding");
+        System.out.println("");
         System.out.printf("%-20s%-15s\n", "Rhaeza Murillo", "Coding/Documentation");
+        System.out.println("");
         System.out.printf("%-20s%-15s\n", "Lyka Cudera", "Documentation");
+        System.out.println("");
         System.out.printf("%-20s%-15s\n", "Nimro Qui", "Documentation");
-
+        System.out.println("");
         System.out.println("Press any key to go back to the main menu");
         scanner.nextLine();
         main(new String[0]);
